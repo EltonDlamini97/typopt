@@ -1,76 +1,90 @@
-# Compose It
+# MailCraft — AI Email Writing Assistant
 
-PROMPT:
+MailCraft is an AI-powered email writing assistant. Describe what you need — purpose,
+recipient, tone, and key points — and get a polished, professional email in seconds.
 
-Act as a professional email writing assistant.
+## Features
 
-Your task is to generate clear, well-structured, and context-appropriate emails based on user input.
+- **AI email generation** — produces a complete email with a clear subject line, proper
+  greeting, well-structured body, and professional closing.
+- **Tone control** — choose from Formal, Semi-formal, Friendly, Persuasive, or Urgent.
+- **Key points input** — provide the bullet points that matter; the AI weaves them into a
+  natural-sounding message.
+- **Copy to clipboard** — grab the finished email with one click.
+- **Polished UI** — clean, responsive layout built with Tailwind CSS and shadcn/ui.
 
-📌 Input Information
+## How it works
 
-The user will provide:
+1. Enter the email **purpose** (e.g. job application, meeting request, follow-up).
+2. Specify the **recipient** (e.g. hiring manager, client, team).
+3. Pick a **tone**.
+4. List the **key points** to include.
+5. Optionally add a **sender name** for the closing.
+6. Click **Generate email** — the email appears in the right-hand panel, ready to copy.
 
- Email purpose: [e.g. job application, meeting request, follow-up, complaint, announcement, etc.]
+The output always follows this format:
 
- Recipient: [e.g. manager, client, team, lecturer, HR, etc.]
-
- Tone: [formal / semi-formal / friendly / persuasive / urgent]
-
- Key points to include: [bullet list of important details]
-
- Sender name: [optional]
-
-🧠 Instructions
-
- Write a complete email with:
-
- A clear subject line
-
- Proper greeting
-
- Well-structured body paragraphs
-
- Professional closing
-
- Adjust tone based on the request
-
- Keep the email concise but informative
-
- Avoid unnecessary repetition
-
- Ensure grammar is perfect and professional
-
- Make the message sound natural, not robotic
-
-📧 Output Format
-
-Always return:
-
+```text
 Subject:
 [Email subject]
 
 Email Body:
 [Full email content]
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://typopt.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/ac59b92a-0791-4a4f-b3ee-9a2a9692bcc0).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
 ```
+
+## Tech stack
+
+- **Framework:** [TanStack Start](https://tanstack.com/start/latest) (React 19, SSR)
+- **Build tool:** Vite 7
+- **Styling:** Tailwind CSS v4 + shadcn/ui components
+- **AI:** Lovable AI Gateway (chat completions)
+- **Backend:** Lovable Cloud (Supabase)
+- **Deployment target:** Cloudflare Workers (Edge)
+
+## Project structure
+
+```text
+src/
+├─ lib/
+│  └─ email.functions.ts   # createServerFn that calls the AI Gateway
+├─ routes/
+│  └─ index.tsx            # Main UI: form + generated-email panel
+├─ components/ui/          # shadcn/ui primitives (Button, Card, Input, …)
+├─ integrations/supabase/  # Auto-generated Supabase client
+└─ styles.css             # Theme tokens & Tailwind config
+```
+
+## Getting started
+
+```bash
+# Install dependencies
+bun install
+
+# Start the dev server
+bun run dev
+
+# Build for production
+bun run build
+
+# Preview the production build
+bun run preview
+```
+
+## Environment variables
+
+The app reads the following at runtime. Secrets are managed through Lovable — never
+commit them.
+
+| Variable         | Where it's used         | Purpose                         |
+| ---------------- | ----------------------- | ------------------------------- |
+| `LOVABLE_API_KEY`| `src/lib/email.functions.ts` | Authenticates AI Gateway calls |
+
+## Notes
+
+- AI outputs are generated and may contain errors — review before sending.
+- The model is tuned for clear, natural, professional prose; it avoids markdown and
+  commentary in the output.
+
+---
+
+Powered by Lovable AI.
